@@ -1,28 +1,36 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactNative, {
-  SectionList,
-  StyleSheet,
-  View,
-  NativeModules,
-  Text,
-} from 'react-native';
-import merge from 'merge';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import ReactNative, { SectionList, StyleSheet, View, NativeModules, Text, PixelRatio } from "react-native";
 
-import RightSectionList from './RightSectionList';
+import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
+import merge from "merge";
+
+import RightSectionList from "./RightSectionList";
 
 const { UIManager } = NativeModules;
 
 export default class AlphabetSectionList extends Component {
-
   constructor(props) {
     super(props);
 
+    const { itemHeight, sectionHeaderHeight } = props.config;
+    this.getItemLayout = sectionListGetItemLayout({
+      // The height of the row with rowData at the given sectionIndex and rowIndex
+      getItemHeight: (rowData, sectionIndex, rowIndex) => {
+        return sectionIndex === 0 ? itemHeight : 55.7;
+      },
+
+      // These three properties are optional
+      // getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
+      getSectionHeaderHeight: () => sectionHeaderHeight, // The height of your section headers
+      // getSectionFooterHeight: () => 10, // The height of your section footers
+    });
+
     this.state = {
       dataSource: [],
-      offsetY: 0
+      offsetY: 0,
     };
 
     this.renderFooter = this.renderFooter.bind(this);
@@ -47,7 +55,7 @@ export default class AlphabetSectionList extends Component {
 
   scrollToSection(section) {
     let keys = Object.keys(this.props.data);
-    if (typeof (this.props.compareFunction) === "function") {
+    if (typeof this.props.compareFunction === "function") {
       keys = keys.sort(this.props.compareFunction);
     }
     const index = keys.indexOf(section);
@@ -62,7 +70,7 @@ export default class AlphabetSectionList extends Component {
       <View style={[styles.sectionHeader, this.props.sectionHeaderStyle]}>
         <Text style={this.props.sectionHeaderTextStyle}>{title}</Text>
       </View>
-    )
+    );
   }
 
   renderFooter() {
@@ -79,7 +87,7 @@ export default class AlphabetSectionList extends Component {
     const offsetY = e.nativeEvent.contentOffset.y;
     if (this.props.updateScrollState) {
       this.setState({
-        offsetY
+        offsetY,
       });
     }
 
@@ -89,7 +97,7 @@ export default class AlphabetSectionList extends Component {
   onScrollAnimationEnd(e) {
     if (this.props.updateScrollState) {
       this.setState({
-        offsetY: e.nativeEvent.contentOffset.y
+        offsetY: e.nativeEvent.contentOffset.y,
       });
     }
   }
@@ -100,11 +108,11 @@ export default class AlphabetSectionList extends Component {
     let dataSource;
     let sections = Object.keys(data);
 
-    if (typeof (this.props.compareFunction) === "function") {
+    if (typeof this.props.compareFunction === "function") {
       sections = sections.sort(this.props.compareFunction);
     }
 
-    sectionList = !this.props.hideRightSectionList ?
+    sectionList = !this.props.hideRightSectionList ? (
       <RightSectionList
         style={this.props.rightSectionStyle}
         onSectionSelect={this.scrollToSection}
@@ -113,8 +121,8 @@ export default class AlphabetSectionList extends Component {
         getSectionListTitle={this.props.getRightSectionListTitle}
         component={this.props.rightSectionListItem}
         fontStyle={this.props.sectionListFontStyle}
-      /> :
-      null;
+      />
+    ) : null;
 
     dataSource = data;
     let sectionsListSections = [];
@@ -124,17 +132,13 @@ export default class AlphabetSectionList extends Component {
       sectionsListSections.push({ title: alphabet, data: alphabetData });
     }
 
-    const renderFooter = this.props.footer ?
-      this.renderFooter :
-      this.props.renderFooter;
+    const renderFooter = this.props.footer ? this.renderFooter : this.props.renderFooter;
 
-    const renderHeader = this.props.header ?
-      this.renderHeader :
-      this.props.renderHeader;
+    const renderHeader = this.props.header ? this.renderHeader : this.props.renderHeader;
 
-    const renderSectionHeader = this.props.renderSectionHeader ?
-      this.props.renderSectionHeader :
-      this.renderSectionHeader;
+    const renderSectionHeader = this.props.renderSectionHeader
+      ? this.props.renderSectionHeader
+      : this.renderSectionHeader;
 
     const props = merge({}, this.props, {
       onScroll: this.onScroll,
@@ -153,6 +157,7 @@ export default class AlphabetSectionList extends Component {
         <SectionList
           ref="listview"
           keyExtractor={(item, index) => item + index}
+          getItemLayout={this.getItemLayout}
           {...props}
         />
         {sectionList}
@@ -163,20 +168,23 @@ export default class AlphabetSectionList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   sectionHeader: {
     paddingLeft: 10,
-    backgroundColor: '#f1f2f3',
+    backgroundColor: "#f1f2f3",
   },
 });
 
-const stylesheetProp = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.object,
-]);
+const stylesheetProp = PropTypes.oneOfType([PropTypes.number, PropTypes.object]);
 
 AlphabetSectionList.propTypes = {
+  config: PropTypes.shape({
+    sectionHeaderHeight: PropTypes.number,
+    sectionFooterHeigh: PropTypes.number,
+    separatorHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+  }),
   /**
    * The data to render in the listview
    */
