@@ -1,17 +1,12 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, View, Text } from "react-native";
 
 const returnTrue = () => true;
 
 export default class RightSectionList extends Component {
-
   constructor(props, context) {
     super(props, context);
 
@@ -42,7 +37,10 @@ export default class RightSectionList extends Component {
     }
     let index = Math.floor((targetY - y) / height);
     index = Math.min(index, this.props.sections.length - 1);
-    if (this.lastSelectedIndex !== index && this.props.data[this.props.sections[index]].length) {
+    if (
+      this.lastSelectedIndex !== index &&
+      this.props.data[this.props.sections[index]].length
+    ) {
       this.lastSelectedIndex = index;
       this.onSectionSelect(this.props.sections[index], true);
     }
@@ -58,9 +56,9 @@ export default class RightSectionList extends Component {
         this.measure = {
           y: pageY,
           width,
-          height
+          height,
         };
-      })
+      });
     }, 0);
   }
 
@@ -79,33 +77,38 @@ export default class RightSectionList extends Component {
   render() {
     const SectionComponent = this.props.component;
     const sections = this.props.sections.map((section, index) => {
-      const title = this.props.getSectionListTitle ?
-        this.props.getSectionListTitle(section) :
-        section;
+      const title = this.props.getSectionListTitle
+        ? this.props.getSectionListTitle(section)
+        : section;
 
-      const textStyle = this.props.data[section].length ?
-        styles.text :
-        styles.inactivetext;
+      const textStyle = this.props.data[section].length
+        ? styles.text
+        : styles.inactivetext;
 
-      const child = SectionComponent ?
-        <SectionComponent
-          sectionId={section}
-          title={title}
-        /> :
-        <View
-          style={styles.item}>
+      const child = SectionComponent ? (
+        <SectionComponent sectionId={section} title={title} />
+      ) : (
+        <View>
           <Text style={[textStyle, this.props.fontStyle]}>{title}</Text>
-        </View>;
+        </View>
+      );
 
-        return (
-          <View key={index} ref={'sectionItem' + index} pointerEvents="none">
-            {child}
-          </View>
-        );
+      return (
+        <View
+          key={index}
+          ref={"sectionItem" + index}
+          style={styles.item}
+          pointerEvents="none"
+        >
+          {child}
+        </View>
+      );
     });
 
     return (
-      <View ref="view" style={[styles.container, this.props.style]}
+      <View
+        ref="view"
+        style={[styles.container, this.props.style]}
         onStartShouldSetResponder={returnTrue}
         onMoveShouldSetResponder={returnTrue}
         onResponderGrant={this.detectAndScrollToSection}
@@ -120,32 +123,35 @@ export default class RightSectionList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    backgroundColor: 'transparent',
-    alignItems:'flex-end',
-    justifyContent:'center',
+    position: "absolute",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
     right: 5,
-    top: 0,
-    bottom: 0
+    top: 50,
+    bottom: 50,
   },
 
   item: {
-    padding: 0
+    flexGrow: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
   },
 
   text: {
-    fontWeight: '700',
-    color: '#008fff'
+    fontWeight: "700",
+    color: "#008fff",
   },
 
   inactivetext: {
-    fontWeight: '700',
-    color: '#CCCCCC'
-  }
+    fontWeight: "700",
+    color: "#CCCCCC",
+  },
 });
 
 RightSectionList.propTypes = {
-
   /**
    * A component to render for each section item
    */
@@ -169,16 +175,10 @@ RightSectionList.propTypes = {
   /**
    * A style to apply to the section list container
    */
-  style: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object,
-  ]),
+  style: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 
   /**
    * Text font size
    */
-  fontStyle: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object,
-  ]),
+  fontStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 };
