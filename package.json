@@ -14,7 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "merge": "^1.2.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react-native-section-list-get-item-layout": "^2.2.3"
   },
   "homepage": "https://github.com/CoderJWYang/react-native-alphabet-sectionlist#readme",
   "bugs": {
