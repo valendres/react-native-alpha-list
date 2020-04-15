@@ -34,17 +34,17 @@ export interface AlphaListProps<Item> extends SectionListProps<Item> {
    * Functions to provide a title for the section header and the section list
    * items. If not provided, the section ids will be used (the keys from the data object)
    */
-  getNavItemTitle: AlphaListNavProps["getNavItemTitle"];
+  getNavItemTitle?: AlphaListNavProps["getNavItemTitle"];
 
   /**
    * A custom element to render for right each section list item
    */
-  NavItem: AlphaListNavProps["NavItem"];
+  NavItem?: AlphaListNavProps["NavItem"];
 
   /**
    * Callback which should be called when the user scrolls to a section
    */
-  onScrollToSection: (sectionKey: string) => void;
+  onScrollToSection?: (sectionKey: string) => void;
 
   /**
    * rightSection style
