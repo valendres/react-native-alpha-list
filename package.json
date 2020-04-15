@@ -1,37 +1,37 @@
 {
-  "name": "react-native-alphabet-sectionlist",
-  "version": "0.0.4",
-  "description": "Based on SectionList, list with a sidebar to jump to sections directly",
-  "main": "index.js",
+  "name": "react-native-alpha-list",
+  "version": "0.0.1",
+  "description": "Based on `react-native-alphabet-sectionlist`, but converted to typescript",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
-    "name": "CoderJeryy",
-    "email": "yangjerryjw@gmail.com",
-    "url": "https://github.com/CoderJWYang"
+    "name": "Peter Weller",
+    "email": "contact@peterweller.com.au",
+    "url": "https://github.com/valendres"
   },
   "license": "MIT",
   "dependencies": {
     "react-native-section-list-get-item-layout": "^2.2.3"
   },
   "peerDependencies": {
-    "react": ">=0.16.3",
+    "react": ">=16",
     "react-native": ">=0.61"
   },
   "devDependencies": {
-    "@types/react-native": "^0.62.2",
-    "react": ">=0.16.3",
-    "react-native": ">=0.61",
-    "typescript": "^3.8.3"
+    "@types/react-native": "0.62.2",
+    "react": "16.13.1",
+    "react-native": "0.62.2",
+    "typescript": "3.8.3"
   },
-  "homepage": "https://github.com/CoderJWYang/react-native-alphabet-sectionlist#readme",
+  "homepage": "https://github.com/valendres/react-native-alpha-list.git#readme",
   "bugs": {
-    "url": "https://github.com/CoderJWYang/react-native-alphabet-sectionlist/issues"
+    "url": "https://github.com/valendres/react-native-alpha-list.git/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CoderJWYang/react-native-alphabet-sectionlist.git"
+    "url": "git+https://github.com/valendres/react-native-alpha-list.git.git"
   },
   "keywords": [
     "react-native",
