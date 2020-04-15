@@ -160,7 +160,7 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     },
 
     // These three properties are optional
-    getSectionHeaderHeight: () => this.props.config?.sectionHeaderHeight, // The height of your section headers
+    getSectionHeaderHeight: () => this.props.config?.sectionHeaderHeight ?? 10, // The height of your section headers
     // getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
     // getSectionFooterHeight: () => 10, // The height of your section footers
   });
