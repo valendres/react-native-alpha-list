@@ -17,12 +17,17 @@ export interface AlphaListSection {
   data: AlphaListProps<any>["data"][0];
 }
 
-export interface AlphaListProps<Item> extends SectionListProps<Item> {
+export interface AlphaListProps<Item>
+  extends Omit<SectionListProps<Item>, "sections" | "data"> {
   config: {
     itemHeight: number;
     sectionHeaderHeight?: number;
     sectionFooterHeight?: number;
     separatorHeight?: number;
+  };
+
+  data: {
+    [sectionKey: string]: any[];
   };
 
   /**
