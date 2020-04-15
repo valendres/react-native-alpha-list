@@ -40,6 +40,14 @@ export class AlphaListNav extends React.Component<AlphaListNavProps> {
     height: number;
   };
 
+  constructor(props: AlphaListNavProps) {
+    super(props);
+    this.handleNavItemSelect = this.handleNavItemSelect.bind(this);
+    this.detectAndScrollToSection = this.detectAndScrollToSection.bind(this);
+    this.resetSection = this.resetSection.bind(this);
+    this.fixSectionItemMeasure = this.fixSectionItemMeasure.bind(this);
+  }
+
   componentDidMount() {
     this.fixSectionItemMeasure();
   }

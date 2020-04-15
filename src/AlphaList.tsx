@@ -75,6 +75,27 @@ export interface AlphaListProps<Item>
 export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
   private containerRef = React.createRef<View>();
   private sectionListRef = React.createRef<SectionList>();
+  private getItemLayout: any;
+
+  constructor(props: AlphaListProps<Item>) {
+    super(props);
+
+    this.getItemLayout = sectionListGetItemLayout({
+      // The height of the row with rowData at the given sectionIndex and rowIndex
+      getItemHeight: (rowData, sectionIndex, rowIndex) => {
+        return sectionIndex === 0 ? this.props.config?.itemHeight : 55.7;
+      },
+
+      // These three properties are optional
+      getSectionHeaderHeight: () =>
+        this.props.config?.sectionHeaderHeight ?? 10, // The height of your section headers
+      // getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
+      // getSectionFooterHeight: () => 10, // The height of your section footers
+    });
+
+    this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    this.handleSectionSelect = this.handleSectionSelect.bind(this);
+  }
 
   // componentDidMount() {
   //   setTimeout(() => {
@@ -93,14 +114,14 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
   //   }, 0);
   // }
 
-  renderSectionHeader = ({ section }: { section: AlphaListSection }) => {
+  renderSectionHeader({ section }: { section: AlphaListSection }) {
     const { sectionHeaderStyle, sectionHeaderTextStyle } = this.props;
     return (
       <View style={[styles.sectionHeader, sectionHeaderStyle]}>
         <Text style={sectionHeaderTextStyle}>{section?.key}</Text>
       </View>
     );
-  };
+  }
 
   render() {
     const {
@@ -153,19 +174,7 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     );
   }
 
-  getItemLayout = sectionListGetItemLayout({
-    // The height of the row with rowData at the given sectionIndex and rowIndex
-    getItemHeight: (rowData, sectionIndex, rowIndex) => {
-      return sectionIndex === 0 ? this.props.config?.itemHeight : 55.7;
-    },
-
-    // These three properties are optional
-    getSectionHeaderHeight: () => this.props.config?.sectionHeaderHeight ?? 10, // The height of your section headers
-    // getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
-    // getSectionFooterHeight: () => 10, // The height of your section footers
-  });
-
-  handleSectionSelect = (sectionKey: string) => {
+  handleSectionSelect(sectionKey: string) {
     const { data, onScrollToSection } = this.props;
 
     const sectionIndex = Object.keys(data).indexOf(sectionKey);
@@ -176,5 +185,5 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     });
 
     onScrollToSection?.(sectionKey);
-  };
+  }
 }
