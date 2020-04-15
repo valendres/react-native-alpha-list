@@ -19,10 +19,10 @@ export interface AlphaListSection {
 
 export interface AlphaListProps<Item> extends SectionListProps<Item> {
   config: {
-    sectionHeaderHeight: number;
-    sectionFooterHeight: number;
-    separatorHeight: number;
     itemHeight: number;
+    sectionHeaderHeight?: number;
+    sectionFooterHeight?: number;
+    separatorHeight?: number;
   };
 
   /**
