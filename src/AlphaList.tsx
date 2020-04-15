@@ -93,14 +93,14 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
   //   }, 0);
   // }
 
-  renderSectionHeader({ section }: { section: AlphaListSection }) {
+  renderSectionHeader = ({ section }: { section: AlphaListSection }) => {
     const { sectionHeaderStyle, sectionHeaderTextStyle } = this.props;
     return (
       <View style={[styles.sectionHeader, sectionHeaderStyle]}>
         <Text style={sectionHeaderTextStyle}>{section?.key}</Text>
       </View>
     );
-  }
+  };
 
   render() {
     const {
