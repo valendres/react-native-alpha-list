@@ -8,11 +8,11 @@ import {
   SectionListProps,
   GestureResponderEvent,
 } from "react-native";
-import { styles } from "./AlphaSectionListNav.styles";
+import { styles } from "./AlphaListNav.styles";
 
 const returnTrue = () => true;
 
-export interface AlphaSectionListNavProps {
+export interface AlphaListNavProps {
   NavItem: React.ComponentType<{ sectionKey: string; title: string }>;
 
   getNavItemTitle?: (sectionKey: string) => string;
@@ -31,9 +31,7 @@ export interface AlphaSectionListNavProps {
   textStyle: StyleProp<TextStyle>;
 }
 
-export class AlphaSectionListNav extends React.Component<
-  AlphaSectionListNavProps
-> {
+export class AlphaListNav extends React.Component<AlphaListNavProps> {
   private lastSelectedIndex: number = null;
   private measureTimer: number;
   private measure: {

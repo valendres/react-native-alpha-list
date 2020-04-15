@@ -9,18 +9,15 @@ import {
 } from "react-native";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 
-import {
-  AlphaSectionListNav,
-  AlphaSectionListNavProps,
-} from "./AlphaSectionListNav";
-import { styles } from "./AlphaSectionList.styles";
+import { AlphaListNav, AlphaListNavProps } from "./AlphaListNav";
+import { styles } from "./AlphaList.styles";
 
-export interface AlphaSectionListSection {
+export interface AlphaListSection {
   key: string;
-  data: AlphaSectionListProps<any>["data"][0];
+  data: AlphaListProps<any>["data"][0];
 }
 
-export interface AlphaSectionListProps<Item> extends SectionListProps<Item> {
+export interface AlphaListProps<Item> extends SectionListProps<Item> {
   config: {
     sectionHeaderHeight: number;
     sectionFooterHeight: number;
@@ -37,12 +34,12 @@ export interface AlphaSectionListProps<Item> extends SectionListProps<Item> {
    * Functions to provide a title for the section header and the section list
    * items. If not provided, the section ids will be used (the keys from the data object)
    */
-  getNavItemTitle: AlphaSectionListNavProps["getNavItemTitle"];
+  getNavItemTitle: AlphaListNavProps["getNavItemTitle"];
 
   /**
    * A custom element to render for right each section list item
    */
-  NavItem: AlphaSectionListNavProps["NavItem"];
+  NavItem: AlphaListNavProps["NavItem"];
 
   /**
    * Callback which should be called when the user scrolls to a section
@@ -52,12 +49,12 @@ export interface AlphaSectionListProps<Item> extends SectionListProps<Item> {
   /**
    * rightSection style
    */
-  navItemStyle?: AlphaSectionListNavProps["style"];
+  navItemStyle?: AlphaListNavProps["style"];
 
   /**
    * Right section font style
    */
-  navItemTextStyle?: AlphaSectionListNavProps["textStyle"];
+  navItemTextStyle?: AlphaListNavProps["textStyle"];
 
   /**
    * Default section header style
@@ -70,9 +67,7 @@ export interface AlphaSectionListProps<Item> extends SectionListProps<Item> {
   sectionHeaderTextStyle?: StyleProp<ViewStyle>;
 }
 
-export class AlphaSectionList<Item> extends React.Component<
-  AlphaSectionListProps<Item>
-> {
+export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
   private containerRef = React.createRef<View>();
   private sectionListRef = React.createRef<SectionList>();
 
@@ -93,7 +88,7 @@ export class AlphaSectionList<Item> extends React.Component<
   //   }, 0);
   // }
 
-  renderSectionHeader({ section }: { section: AlphaSectionListSection }) {
+  renderSectionHeader({ section }: { section: AlphaListSection }) {
     const { sectionHeaderStyle, sectionHeaderTextStyle } = this.props;
     return (
       <View style={[styles.sectionHeader, sectionHeaderStyle]}>
@@ -139,7 +134,7 @@ export class AlphaSectionList<Item> extends React.Component<
           sections={sections}
         />
         {!hideNav && (
-          <AlphaSectionListNav
+          <AlphaListNav
             style={navItemStyle}
             textStyle={navItemTextStyle}
             onNavItemSelect={this.handleSectionSelect}

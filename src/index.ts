@@ -1,2 +1,2 @@
-export * from "./AlphaSectionList";
-export * from "./AlphaSectionListNav";
+export * from "./AlphaList";
+export * from "./AlphaListNav";
