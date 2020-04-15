@@ -31,7 +31,7 @@ export interface AlphaSectionListNavProps {
   textStyle: StyleProp<TextStyle>;
 }
 
-export default class AlphaSectionListNav extends React.Component<
+export class AlphaSectionListNav extends React.Component<
   AlphaSectionListNavProps
 > {
   private lastSelectedIndex: number = null;

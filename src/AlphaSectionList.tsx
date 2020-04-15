@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 
-import AlphaSectionListNav, {
+import {
+  AlphaSectionListNav,
   AlphaSectionListNavProps,
 } from "./AlphaSectionListNav";
 import { styles } from "./AlphaSectionList.styles";
@@ -69,7 +70,7 @@ export interface AlphaSectionListProps<Item> extends SectionListProps<Item> {
   sectionHeaderTextStyle?: StyleProp<ViewStyle>;
 }
 
-export default class AlphaSectionList<Item> extends React.Component<
+export class AlphaSectionList<Item> extends React.Component<
   AlphaSectionListProps<Item>
 > {
   private containerRef = React.createRef<View>();
