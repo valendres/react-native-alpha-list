@@ -13,7 +13,7 @@ import { AlphaListNav, AlphaListNavProps } from "./AlphaListNav";
 import { styles } from "./AlphaList.styles";
 
 export interface AlphaListSection {
-  key: string;
+  sectionKey: string;
   data: AlphaListProps<any>["data"][0];
 }
 
@@ -118,7 +118,7 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     const { sectionHeaderStyle, sectionHeaderTextStyle } = this.props;
     return (
       <View style={[styles.sectionHeader, sectionHeaderStyle]}>
-        <Text style={sectionHeaderTextStyle}>{section?.key}</Text>
+        <Text style={sectionHeaderTextStyle}>{section?.sectionKey}</Text>
       </View>
     );
   }
@@ -143,8 +143,8 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     };
 
     const sectionKeys = Object.keys(data);
-    const sections = sectionKeys.map((sectionKey) => ({
-      title: sectionKey,
+    const sections: AlphaListSection[] = sectionKeys.map((sectionKey) => ({
+      sectionKey,
       data: data[sectionKey],
     }));
 

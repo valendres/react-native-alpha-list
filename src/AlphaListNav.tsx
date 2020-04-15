@@ -9,6 +9,7 @@ import {
   GestureResponderEvent,
 } from "react-native";
 import { styles } from "./AlphaListNav.styles";
+import type { AlphaListSection } from "./AlphaList";
 
 const returnTrue = () => true;
 
@@ -21,10 +22,7 @@ export interface AlphaListNavProps {
 
   data: SectionListProps<any>["data"];
 
-  sections: {
-    title: string;
-    data: any;
-  }[];
+  sections: AlphaListSection[];
 
   style: StyleProp<ViewStyle>;
 
@@ -129,10 +127,10 @@ export class AlphaListNav extends React.Component<AlphaListNavProps> {
     );
     if (
       this.lastSelectedIndex !== index &&
-      data[sections[index].title].length
+      data[sections[index].sectionKey].length
     ) {
       this.lastSelectedIndex = index;
-      this.handleNavItemSelect(sections[index].title, true);
+      this.handleNavItemSelect(sections[index].sectionKey, true);
     }
   }
 
