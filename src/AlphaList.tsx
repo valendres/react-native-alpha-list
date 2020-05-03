@@ -1,16 +1,16 @@
 import React from "react";
 import {
   SectionList,
-  View,
-  Text,
-  StyleProp,
-  ViewStyle,
   SectionListProps,
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
 } from "react-native";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 
-import { AlphaListNav, AlphaListNavProps } from "./AlphaListNav";
 import { styles } from "./AlphaList.styles";
+import { AlphaListNav, AlphaListNavProps } from "./AlphaListNav";
 
 export interface AlphaListSection {
   sectionKey: string;
@@ -83,12 +83,12 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
     this.getItemLayout = sectionListGetItemLayout({
       // The height of the row with rowData at the given sectionIndex and rowIndex
       getItemHeight: (rowData, sectionIndex, rowIndex) => {
-        return sectionIndex === 0 ? this.props.config?.itemHeight : 55.7;
+        return this.props.config?.itemHeight;
       },
 
       // These three properties are optional
       getSectionHeaderHeight: () =>
-        this.props.config?.sectionHeaderHeight ?? 10, // The height of your section headers
+        this.props.config?.sectionHeaderHeight ?? 29, // The height of your section headers
       // getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
       // getSectionFooterHeight: () => 10, // The height of your section footers
     });
