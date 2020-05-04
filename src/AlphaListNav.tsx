@@ -1,15 +1,16 @@
 import React from "react";
 import {
-  View,
-  Text,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  SectionListProps,
   GestureResponderEvent,
+  SectionListProps,
+  StyleProp,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
 } from "react-native";
-import { styles } from "./AlphaListNav.styles";
+
 import type { AlphaListSection } from "./AlphaList";
+import { styles } from "./AlphaListNav.styles";
 
 const returnTrue = () => true;
 
@@ -24,7 +25,9 @@ export interface AlphaListNavProps {
 
   sections: AlphaListSection[];
 
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
+
+  itemStyle: StyleProp<ViewStyle>;
 
   textStyle: StyleProp<TextStyle>;
 }
@@ -59,7 +62,14 @@ export class AlphaListNav extends React.Component<AlphaListNavProps> {
   }
 
   render() {
-    const { NavItem, data, getNavItemTitle, style, textStyle } = this.props;
+    const {
+      NavItem,
+      data,
+      getNavItemTitle,
+      style,
+      itemStyle,
+      textStyle,
+    } = this.props;
     const sections = Object.keys(data).map((sectionKey, index) => {
       const title = getNavItemTitle?.(sectionKey) || sectionKey;
       const child = NavItem ? (
@@ -81,7 +91,7 @@ export class AlphaListNav extends React.Component<AlphaListNavProps> {
         <View
           key={index}
           ref={"sectionItem" + index}
-          style={styles.item}
+          style={[styles.item, itemStyle]}
           pointerEvents="none"
         >
           {child}

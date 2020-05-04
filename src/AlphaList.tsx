@@ -52,7 +52,12 @@ export interface AlphaListProps<Item>
   onScrollToSection?: (sectionKey: string) => void;
 
   /**
-   * rightSection style
+   * Right section container style
+   */
+  style?: AlphaListNavProps["style"];
+
+  /**
+   * Right section item style
    */
   navItemStyle?: AlphaListNavProps["style"];
 
@@ -74,7 +79,7 @@ export interface AlphaListProps<Item>
 
 export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
   private containerRef = React.createRef<View>();
-  private sectionListRef = React.createRef<SectionList>();
+  private sectionListRef = React.createRef<SectionList<Item>>();
   private getItemLayout: any;
 
   constructor(props: AlphaListProps<Item>) {
@@ -152,7 +157,7 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
       <View ref={this.containerRef} style={[styles.container, style]}>
         <SectionList
           renderSectionHeader={this.renderSectionHeader}
-          keyExtractor={(item, index) => item + index}
+          keyExtractor={(item: any, index) => item + index}
           {...restProps}
           {...injectedProps}
           ref={this.sectionListRef}
@@ -161,7 +166,7 @@ export class AlphaList<Item> extends React.Component<AlphaListProps<Item>> {
         />
         {!hideNav && (
           <AlphaListNav
-            style={navItemStyle}
+            itemStyle={navItemStyle}
             textStyle={navItemTextStyle}
             onNavItemSelect={this.handleSectionSelect}
             getNavItemTitle={getNavItemTitle}
